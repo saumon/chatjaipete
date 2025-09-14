@@ -200,6 +200,85 @@
             background: #ffffff;
         }
 
+        /* Animation des smileys */
+        .emoji-animation {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            height: 60px;
+            position: relative;
+        }
+
+        .emoji-animation.show {
+            display: flex;
+        }
+
+        .emoji-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .emoji {
+            font-size: 32px;
+            animation: bounce 0.6s ease-in-out infinite alternate;
+            opacity: 0.8;
+        }
+
+        .emoji:nth-child(1) { animation-delay: 0s; }
+        .emoji:nth-child(2) { animation-delay: 0.1s; }
+        .emoji:nth-child(3) { animation-delay: 0.2s; }
+        .emoji:nth-child(4) { animation-delay: 0.3s; }
+        .emoji:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            to {
+                transform: translateY(-10px) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .input-container.hidden {
+            display: none;
+        }
+
+        /* Animation des points de chargement */
+        .loading-dots {
+            font-size: 32px;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: 4px;
+        }
+
+        .loading-dots .dot {
+            animation: blink 1.4s ease-in-out infinite both;
+        }
+
+        .loading-dots .dot:nth-child(1) { animation-delay: 0s; }
+        .loading-dots .dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes blink {
+            0%, 80%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            40% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .main-title {
@@ -247,9 +326,123 @@
                 </button>
             </div>
         </div>
+
+        <!-- Animation des smileys -->
+        <div class="emoji-animation" id="emoji-animation">
+            <div class="emoji-container">
+                <span class="emoji">💨</span>
+                <span class="emoji">💨</span>
+                <span class="emoji">💨</span>
+                <span class="emoji">💨</span>
+                <span class="emoji">💨</span>
+            </div>
+        </div>
     </div>
 
     <script>
+        // Liste des sons disponibles
+        const availableSounds = [
+            'bubbly_fart.mp3',
+            'cartoon_fart.mp3',
+            'classic_fart.mp3',
+            'deep_bass_fart.mp3',
+            'epic_thunder_fart.mp3',
+            'explosive_fart.mp3',
+            'gentle_puff.mp3',
+            'high_pitched_squeak.mp3',
+            'juicy_fart.mp3',
+            'long_rumbling_fart.mp3',
+            'mega_blast.mp3',
+            'rapid_fire_farts.mp3',
+            'short_toot.mp3',
+            'silent_but_deadly.mp3',
+            'squeaky_mouse_fart.mp3',
+            'surprised_toot.mp3',
+            'tiny_poot.mp3',
+            'trumpet_fart.mp3',
+            'volcanic_eruption.mp3',
+            'wet_squishy_fart.mp3',
+            'whoopee_cushion.mp3',
+            'windy_fart.mp3'
+        ];
+
+        // Fonction pour afficher l'animation des smileys
+        function showEmojiAnimation() {
+            const inputContainer = document.querySelector('.input-container');
+            const emojiAnimation = document.querySelector('#emoji-animation');
+            const mainTitle = document.querySelector('.main-title');
+            
+            // Masquer le champ de saisie
+            inputContainer.classList.add('hidden');
+            // Afficher l'animation
+            emojiAnimation.classList.add('show');
+            
+            // Remplacer le titre par les points animés
+            mainTitle.innerHTML = '<span class="loading-dots"><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span>';
+        }
+
+        // Fonction pour masquer l'animation des smileys
+        function hideEmojiAnimation() {
+            const inputContainer = document.querySelector('.input-container');
+            const emojiAnimation = document.querySelector('#emoji-animation');
+            const mainTitle = document.querySelector('.main-title');
+            
+            // Afficher le champ de saisie
+            inputContainer.classList.remove('hidden');
+            // Masquer l'animation
+            emojiAnimation.classList.remove('show');
+            
+            // Restaurer le titre original
+            mainTitle.innerHTML = 'Quel est le programme aujourd\'hui ?';
+        }
+
+        // Fonction pour jouer une suite de sons aléatoires
+        function playRandomSounds() {
+            // Afficher l'animation
+            showEmojiAnimation();
+            
+            // Nombre aléatoire de sons à jouer (entre 2 et 5)
+            const numberOfSounds = Math.floor(Math.random() * 4) + 2;
+            let soundsFinished = 0;
+            const audioObjects = [];
+            
+            // Fonction appelée quand un son se termine
+            function onSoundEnded() {
+                soundsFinished++;
+                if (soundsFinished === numberOfSounds) {
+                    // Tous les sons sont terminés, attendre un peu puis masquer l'animation
+                    setTimeout(() => {
+                        hideEmojiAnimation();
+                    }, 500);
+                }
+            }
+            
+            // Jouer les sons avec des délais aléatoires
+            for (let i = 0; i < numberOfSounds; i++) {
+                setTimeout(() => {
+                    // Sélectionner un son aléatoire
+                    const randomSound = availableSounds[Math.floor(Math.random() * availableSounds.length)];
+                    const audio = new Audio(`assets/sounds/${randomSound}`);
+                    
+                    // Régler le volume (entre 0.3 et 0.8)
+                    audio.volume = Math.random() * 0.5 + 0.3;
+                    
+                    // Écouter la fin du son
+                    audio.addEventListener('ended', onSoundEnded);
+                    audio.addEventListener('error', onSoundEnded); // En cas d'erreur, compter aussi comme terminé
+                    
+                    // Stocker la référence audio
+                    audioObjects.push(audio);
+                    
+                    // Jouer le son
+                    audio.play().catch(error => {
+                        console.log('Erreur lors de la lecture du son:', error);
+                        onSoundEnded(); // Compter comme terminé en cas d'erreur
+                    });
+                }, i * (Math.random() * 1000 + 500)); // Délai aléatoire entre 500ms et 1500ms
+            }
+        }
+
         // Fonction pour gérer l'envoi du message
         function handleSendMessage() {
             const input = document.querySelector('.message-input');
@@ -257,6 +450,10 @@
             
             if (message) {
                 console.log('Message envoyé:', message);
+                
+                // Jouer la suite de sons aléatoires
+                playRandomSounds();
+                
                 input.value = '';
                 // Masquer le bouton après envoi
                 toggleSendButton();
