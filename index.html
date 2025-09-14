@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatJaiPété</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: #212121;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Header avec l'icône et le nom ChatJaiPété */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #10a37f, #1a7f64);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: white;
+        }
+
+        .brand-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .dropdown-arrow {
+            margin-left: 4px;
+            font-size: 12px;
+            color: #8e8ea0;
+        }
+
+        /* Bouton "Passer au plan supérieur" */
+        .upgrade-button {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: linear-gradient(135deg, #ab68ff, #8a4fff);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .upgrade-button:hover {
+            opacity: 0.9;
+        }
+
+        .upgrade-icon {
+            font-size: 12px;
+        }
+
+        /* Sidebar toggle icons */
+        .sidebar-icons {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sidebar-icon {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            color: #8e8ea0;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-icon:hover {
+            color: #ffffff;
+        }
+
+        /* Main content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+            width: 100%;
+            max-width: 768px;
+            padding: 0 20px;
+        }
+
+        .main-title {
+            font-size: 32px;
+            font-weight: 400;
+            text-align: center;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        /* Input container */
+        .input-container {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .input-wrapper {
+            background: #2f2f2f;
+            border-radius: 24px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #404040;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #565656;
+        }
+
+        .attach-icon {
+            width: 20px;
+            height: 20px;
+            color: #8e8ea0;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+        }
+
+        .attach-icon:hover {
+            color: #ffffff;
+        }
+
+        .message-input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .message-input::placeholder {
+            color: #8e8ea0;
+        }
+
+        .voice-icon {
+            width: 20px;
+            height: 20px;
+            color: #8e8ea0;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+        }
+
+        .voice-icon:hover {
+            color: #ffffff;
+        }
+
+        .send-button {
+            width: 20px;
+            height: 20px;
+            color: #8e8ea0;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+        }
+
+        .send-button:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 28px;
+            }
+
+            .input-container {
+                max-width: 100%;
+            }
+
+            .sidebar-icons {
+                display: none;
+            }
+        }
+
+        /* Icons using Unicode symbols */
+        .icon-menu::before { content: "☰"; }
+        .icon-edit::before { content: "✏️"; }
+        .icon-search::before { content: "🔍"; }
+        .icon-user::before { content: "👤"; }
+        .icon-plus::before { content: "+"; }
+        .icon-mic::before { content: "🎤"; }
+        .icon-send::before { content: "🔼"; }
+        .icon-crown::before { content: "👑"; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">⚡</div>
+        <span class="brand-name">ChatJaiPété</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+
+    <!-- Upgrade button -->
+    <button class="upgrade-button">
+        <span class="upgrade-icon icon-crown"></span>
+        Passer au plan supérieur
+    </button>
+
+    <!-- Sidebar icons -->
+    <div class="sidebar-icons">
+        <button class="sidebar-icon icon-menu" title="Menu"></button>
+        <button class="sidebar-icon icon-edit" title="Nouveau chat"></button>
+        <button class="sidebar-icon icon-search" title="Rechercher"></button>
+        <button class="sidebar-icon icon-user" title="Profil"></button>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <h1 class="main-title">Quel est le programme aujourd'hui ?</h1>
+        
+        <div class="input-container">
+            <div class="input-wrapper">
+                <button class="attach-icon icon-plus" title="Ajouter"></button>
+                <input 
+                    type="text" 
+                    class="message-input" 
+                    placeholder="Poser une question"
+                    autocomplete="off"
+                >
+                <button class="voice-icon icon-mic" title="Message vocal"></button>
+                <button class="send-button icon-send" title="Envoyer le message"></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour gérer l'envoi du message
+        function handleSendMessage() {
+            const input = document.querySelector('.message-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                console.log('Message envoyé:', message);
+                input.value = '';
+                // Ici vous pourriez ajouter la logique pour traiter le message
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.querySelector('.message-input');
+            const sendButton = document.querySelector('.send-button');
+            
+            // Envoyer avec Entrée
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSendMessage();
+                }
+            });
+            
+            // Envoyer avec le bouton
+            sendButton.addEventListener('click', handleSendMessage);
+            
+            // Focus automatique sur l'input
+            input.focus();
+        });
+    </script>
+</body>
+</html>
