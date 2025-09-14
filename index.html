@@ -66,59 +66,7 @@
             color: #8e8ea0;
         }
 
-        /* Bouton "Passer au plan supérieur" */
-        .upgrade-button {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            background: linear-gradient(135deg, #ab68ff, #8a4fff);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
 
-        .upgrade-button:hover {
-            opacity: 0.9;
-        }
-
-        .upgrade-icon {
-            font-size: 12px;
-        }
-
-        /* Sidebar toggle icons */
-        .sidebar-icons {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .sidebar-icon {
-            width: 24px;
-            height: 24px;
-            background: none;
-            border: none;
-            color: #8e8ea0;
-            cursor: pointer;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sidebar-icon:hover {
-            color: #ffffff;
-        }
 
         /* Main content */
         .main-content {
@@ -236,21 +184,12 @@
             .input-container {
                 max-width: 100%;
             }
-
-            .sidebar-icons {
-                display: none;
-            }
         }
 
         /* Icons using Unicode symbols */
-        .icon-menu::before { content: "☰"; }
-        .icon-edit::before { content: "✏️"; }
-        .icon-search::before { content: "🔍"; }
-        .icon-user::before { content: "👤"; }
         .icon-plus::before { content: "+"; }
         .icon-mic::before { content: "🎤"; }
         .icon-send::before { content: "🔼"; }
-        .icon-crown::before { content: "👑"; }
     </style>
 </head>
 <body>
@@ -263,20 +202,6 @@
         </div>
         <span class="brand-name">ChatJaiPété</span>
         <span class="dropdown-arrow">▼</span>
-    </div>
-
-    <!-- Upgrade button -->
-    <button class="upgrade-button">
-        <span class="upgrade-icon icon-crown"></span>
-        Passer au plan supérieur
-    </button>
-
-    <!-- Sidebar icons -->
-    <div class="sidebar-icons">
-        <button class="sidebar-icon icon-menu" title="Menu"></button>
-        <button class="sidebar-icon icon-edit" title="Nouveau chat"></button>
-        <button class="sidebar-icon icon-search" title="Rechercher"></button>
-        <button class="sidebar-icon icon-user" title="Profil"></button>
     </div>
 
     <!-- Main content -->
