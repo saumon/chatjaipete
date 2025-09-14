@@ -366,6 +366,35 @@
             'windy_fart.mp3'
         ];
 
+        // Liste des phrases d'accueil aléatoires
+        const welcomePhrases = [
+            "Quel est le programme aujourd'hui ?",
+            "Sur quoi voulez-vous travailler aujourd'hui ?",
+            "Prêt à apprendre quelque chose de nouveau ?",
+            "Que voulez-vous explorer aujourd'hui ?",
+            "Besoin d'une idée pour écrire une histoire ?",
+            "Envie de cuisiner quelque chose de nouveau ?",
+            "On fait un peu de brainstorming ?",
+            "Voulez-vous de l'aide pour planifier votre journée ?",
+            "Besoin d'un résumé rapide ?",
+            "Et si on organisait vos idées ?",
+            "Parlons d'un sujet qui vous intéresse !",
+            "Une question en tête ?"
+        ];
+
+        // Fonction pour sélectionner une phrase aléatoire
+        function getRandomWelcomePhrase() {
+            const randomIndex = Math.floor(Math.random() * welcomePhrases.length);
+            return welcomePhrases[randomIndex];
+        }
+
+        // Fonction pour mettre à jour la phrase d'accueil
+        function updateWelcomePhrase() {
+            const mainTitle = document.querySelector('.main-title');
+            const newPhrase = getRandomWelcomePhrase();
+            mainTitle.textContent = newPhrase;
+        }
+
         // Fonction pour afficher l'animation des smileys
         function showEmojiAnimation() {
             const inputContainer = document.querySelector('.input-container');
@@ -392,8 +421,8 @@
             // Masquer l'animation
             emojiAnimation.classList.remove('show');
             
-            // Restaurer le titre original
-            mainTitle.innerHTML = 'Quel est le programme aujourd\'hui ?';
+            // Afficher une nouvelle phrase d'accueil aléatoire
+            updateWelcomePhrase();
         }
 
         // Fonction pour jouer une suite de sons aléatoires
@@ -476,6 +505,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const input = document.querySelector('.message-input');
             const sendButton = document.querySelector('#composer-submit-button');
+            
+            // Initialiser avec une phrase d'accueil aléatoire
+            updateWelcomePhrase();
             
             // Afficher/masquer le bouton selon le contenu
             input.addEventListener('input', toggleSendButton);
