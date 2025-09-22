@@ -390,11 +390,11 @@
         <!-- Animation des smileys -->
         <div class="emoji-animation" id="emoji-animation">
             <div class="emoji-container">
+                <span class="emoji">🐈</span>
                 <span class="emoji">💨</span>
                 <span class="emoji">💨</span>
                 <span class="emoji">💨</span>
-                <span class="emoji">💨</span>
-                <span class="emoji">💨</span>
+                <span class="emoji">🙀</span>
             </div>
         </div>
     </div>
@@ -488,13 +488,21 @@
         // Fonction pour afficher l'indicateur de son
         function showSoundIndicator() {
             const soundIndicator = document.querySelector('#sound-indicator');
+            const brandName = document.querySelector('.brand-name');
+            
             soundIndicator.classList.add('active');
+            // Changer le titre du site pendant la lecture des sons
+            brandName.textContent = '🙀 j\'ai 🍑💨 !';
         }
 
         // Fonction pour masquer l'indicateur de son
         function hideSoundIndicator() {
             const soundIndicator = document.querySelector('#sound-indicator');
+            const brandName = document.querySelector('.brand-name');
+            
             soundIndicator.classList.remove('active');
+            // Rétablir le titre original du site
+            brandName.textContent = 'ChatJaiPété';
         }
 
         // Fonction pour jouer une suite de sons aléatoires
